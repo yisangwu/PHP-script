@@ -12,16 +12,16 @@ use library\Lib_Logger;
 
 class Lib_Memcached{
 
-	  private $_memcached = null; 		//memcached 连接对象
-	  private $_memcachedConf = array();	//memcached 的配置必须是数组array( ip,port)
-    private $_isconnected = FALSE; 		//memcached 是否已经连接过
-    private $_try = 2; 					//命令操作重试次数
+	private $_memcached = null; 		//memcached 连接对象
+	private $_memcachedConf = array();	//memcached 的配置必须是数组array( ip,port)
+    	private $_isconnected = FALSE; 		//memcached 是否已经连接过
+    	private $_try = 2; 					//命令操作重试次数
 
-	  private static $_numMemcachedConf  = 2;	//memcached 配置数组的元素个数
-	  private static $_defaultexpire = 604800; //memcached 设置默认的过期时间为7天
-    private static $_prefix = 'BIG_';    //memcached 设置所有key的前缀
+	private static $_numMemcachedConf  = 2;	//memcached 配置数组的元素个数
+	private static $_defaultexpire = 604800; //memcached 设置默认的过期时间为7天
+    	private static $_prefix = 'BIG_';    //memcached 设置所有key的前缀
 
-    const LIMITEXPIRE = 2592000; //过期时间，时间差不能大于 2592000秒（30天）
+    	const LIMITEXPIRE = 2592000; //过期时间，时间差不能大于 2592000秒（30天）
 
 	/**
 	 * 构造函数，memcached配置的初始化
