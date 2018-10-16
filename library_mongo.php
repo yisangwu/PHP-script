@@ -58,9 +58,9 @@ class Lib_Mongo{
 	 * @var array
 	 */
 	private $_default_query_options = [
-										'projection' => ['_id' => 0], 
-										'limit' => 1 
-									];
+					     'projection' => ['_id' => 0], 
+					     'limit' => 1 
+					  ];
 
 	/**
 	 * mongo uri
@@ -198,14 +198,12 @@ class Lib_Mongo{
 
 		// do operation
 		try {
-			$writeConcern = new \MongoDB\Driver\WriteConcern(
-														\MongoDB\Driver\WriteConcern::MAJORITY, 1000
-													);
+			$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
 		    $this->_mongo_result = $this->_mongo_obj->executeBulkWrite(
-											    						$this->_db_collection,
-											    						$this->_mongo_bulk, 
-											    						$writeConcern
-											    					);
+										$this->_db_collection,
+										$this->_mongo_bulk, 
+										$writeConcern
+										);
 		} catch (\MongoDB\Driver\Exception\BulkWriteException $e) {
 
 		    $error_result = $e->getWriteResult();
