@@ -29,7 +29,7 @@ class Lib_Redis{
 
     private static $_numRedisConf  = 2;      //redis 配置数组的元素个数
     private static $_defaultexpire = 172800; //redis 设置默认的过期时间为48小时 
-    private static $_prefix = '';     //redis 设置所有key的前缀
+    private static $_prefix = 'RBIG_';     //redis 设置所有key的前缀
 
     /**
      * 构造函数，redis配置的初始化
