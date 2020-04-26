@@ -75,7 +75,7 @@ function genSignature(string $data='', string $privateKeyString='')
     $ret_sign = ['code'=>0, 'signature'=> '', 'message'=> ''];
 
     if (empty($data) || !is_string($data) || empty($privateKeyString)) {
-        $ret_verify['code'] = -1;
+        $ret_sign['code'] = -1;
         $ret_sign['message'] = 'params error!';
         return $ret_sign;
     }
@@ -83,10 +83,10 @@ function genSignature(string $data='', string $privateKeyString='')
     $privateKey = openssl_pkey_get_private($privateKeyString);
 
     if ( !is_resource($privateKey)) {
-        $ret_verify['code'] = -2;
-        $ret_verify['message'] = 'privateKey error!';
+        $ret_sign['code'] = -2;
+        $ret_sign['message'] = 'privateKey error!';
 
-        return $ret_verify;
+        return $ret_sign;
     }
 
     $signature = null;
@@ -97,10 +97,10 @@ function genSignature(string $data='', string $privateKeyString='')
         return $ret_sign;
     }
 
-    $ret_verify['code'] = -2;
+    $ret_sign['code'] = -2;
     $ret_sign['message'] = openssl_error_string();
 
-    return '';
+    return $ret_sign;
 }
 
 
@@ -136,7 +136,6 @@ function verifySignature(string $data='', string $signature='', string $publicKe
 
     $result = openssl_verify($data, base64_decode($signature), $publicKey, OPENSSL_ALGO_SHA256);
 
-
     if ($result === 1) {
         return $ret_verify;
     }
@@ -145,23 +144,18 @@ function verifySignature(string $data='', string $signature='', string $publicKe
     $ret_verify['message'] = openssl_error_string();
 
     return $ret_verify;
-
 }
 
 
 // 签名字符串数据
 $data = '0123456789';
-
 // 签名
 $sign = genSignature($data, $privateKeyString);
-
-print_r($sign);
-
 // 验证签名
 $verifier = verifySignature($data, $sign['signature'], $publicKeyString);
 
+print_r($sign);
 print_r($verifier);
-
 
 /**
  * --- output
